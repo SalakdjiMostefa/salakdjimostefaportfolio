@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mostefa Salakdji — Senior Full Stack Java</title>
+<meta name="description" content="Développeur senior full stack Java / Spring Boot / Angular / React — banque et e-commerce. Disponible en freelance, Île-de-France et remote.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF;color:#0F172A;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
+*{box-sizing:border-box}
+</style>
+
+<style>html{scroll-behavior:smooth}h1{font-size:clamp(30px,6vw,44px)!important}</style>
+</head>
+<body>
+<template id="tpl">
+
+<div style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #0F172A; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; align-items: stretch">
+
+<!-- NAV -->
+<header style="position: relative; width: 100%; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: center">
+<nav style="width: 100%; max-width: 1120px; padding: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px">
+<a href="#top" style="font-weight: 700; font-size: 16px; color: #0F172A">Mostefa Salakdji</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; font-size: 14px; font-weight: 500">
+<a href="#valeur" style="color: #475569">{{t.nav1}}</a>
+<a href="#resultats" style="color: #475569">{{t.nav2}}</a>
+<a href="#experiences" style="color: #475569">{{t.nav3}}</a>
+<a href="#projets" style="color: #475569">{{t.nav4}}</a>
+<a href="#contact" style="color: #475569">{{t.nav5}}</a>
+<div style="display: flex; border: 1px solid #CBD5E1; border-radius: 8px; overflow: hidden; margin-left: 8px" role="group" aria-label="Langue / Language">
+<button type="button" onClick="{{setFr}}" style="{{frBtn}}">FR</button>
+<button type="button" onClick="{{setEn}}" style="{{enBtn}}">EN</button>
+</div>
+</div>
+</nav>
+</header>
+
+<!-- HERO -->
+<section id="top" style="width: 100%; display: flex; justify-content: center; padding: 64px 16px 48px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1D4ED8; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 999px; padding: 6px 12px">
+<svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><circle cx="4" cy="4" r="4" fill="#1D4ED8"></circle></svg>
+{{t.available}}
+</span>
+<span style="font-size: 13px; color: #64748B; border: 1px solid #E2E8F0; background: #FFFFFF; border-radius: 999px; padding: 6px 12px">{{t.location}}</span>
+</div>
+<h1 style="margin: 0; font-size: 44px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; max-width: 900px">{{t.heroTitle}}</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #334155; max-width: 800px">{{t.heroText}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{heroTags}}" as="h" hint-placeholder-count="5">
+<span style="font-size: 14px; font-weight: 500; color: #334155; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 6px 12px">{{h}}</span>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px">
+<a href="mailto:SalakdjiMostefa@gmail.com" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; background: #1D4ED8; color: #FFFFFF; font-weight: 600; font-size: 15px; border-radius: 10px">{{t.ctaContact}}</a>
+<a href="#resultats" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">{{t.ctaResults}}</a>
+</div>
+</div>
+</section>
+
+<!-- REFERENCES -->
+<section style="width: 100%; display: flex; justify-content: center; padding: 36px 16px; border-bottom: 1px solid #E2E8F0">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+<div style="font-size: 13px; font-weight: 600; color: #64748B; letter-spacing: 0.06em; text-transform: uppercase">{{t.refLabel}}</div>
+<div style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<sc-for list="{{clients}}" as="c" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px 16px 14px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+<div style="width: 160px; height: 48px; display: block; overflow: hidden"><img src="{{c.logo}}" alt="{{c.n}}" style="display: block; width: 160px; height: 48px; object-fit: contain; object-position: center"></div>
+<span style="font-size: 12px; color: #64748B; text-align: center">{{c.s}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- CE QUE J'APPORTE -->
+<section id="valeur" style="width: 100%; display: flex; justify-content: center; padding: 64px 16px 56px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.valueLabel}}</div>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{t.valueTitle}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #475569; max-width: 760px">{{t.valueIntro}}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+<sc-for list="{{values}}" as="v" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 18px; font-weight: 700">{{v.h}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #334155">{{v.business}}</p>
+<div style="margin-top: 4px; padding-top: 10px; border-top: 1px dashed #E2E8F0; font-size: 13px; line-height: 1.5; color: #64748B"><span style="font-weight: 600; color: #475569">{{t.techLabel}}</span> {{v.tech}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section style="width: 100%; display: flex; justify-content: center; padding: 0 16px 64px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 20px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.techStripLabel}}</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px">
+<sc-for list="{{techs}}" as="tc" hint-placeholder-count="16">
+<div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<img src="{{tc.src}}" alt="" style="width: 32px; height: 32px; object-fit: contain">
+<span style="font-size: 13px; font-weight: 500; color: #334155; text-align: center">{{tc.n}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- RESULTATS -->
+<section id="resultats" style="width: 100%; display: flex; justify-content: center; padding: 0 16px 64px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.resultsLabel}}</div>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{t.resultsTitle}}</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px">
+<sc-for list="{{results}}" as="r" hint-placeholder-count="6">
+<div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: #1D4ED8">{{r.n}}</div>
+<div style="font-size: 15px; font-weight: 600; color: #0F172A">{{r.h}}</div>
+<div style="font-size: 14px; line-height: 1.55; color: #475569">{{r.p}}</div>
+<div style="font-size: 12px; color: #64748B">{{r.where}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- EXPERIENCES -->
+<section id="experiences" style="width: 100%; display: flex; justify-content: center; padding: 0 16px 64px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.expLabel}}</div>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{t.expTitle}}</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<sc-for list="{{exps}}" as="e" hint-placeholder-count="4">
+<article style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px 24px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0; font-size: 22px; font-weight: 700">{{e.co}}</h3>
+<div style="font-size: 15px; color: #475569">{{e.role}}</div>
+</div>
+<div style="font-size: 14px; font-weight: 500; color: #64748B; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 6px 12px">{{e.when}}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px 32px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; text-transform: uppercase; letter-spacing: 0.04em">{{t.contextLabel}}</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #334155">{{e.context}}</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; text-transform: uppercase; letter-spacing: 0.04em">{{t.impactLabel}}</div>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.55; color: #1E293B">
+<sc-for list="{{e.items}}" as="it" hint-placeholder-count="4">
+<li>{{it}}</li>
+</sc-for>
+</ul>
+</div>
+</div>
+<div style="padding-top: 14px; border-top: 1px dashed #E2E8F0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px">
+<span style="font-size: 13px; font-weight: 600; color: #475569; margin-right: 4px">{{t.stackLabel}}</span>
+<sc-for list="{{e.tags}}" as="tg" hint-placeholder-count="6">
+<span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{tg}}</span>
+</sc-for>
+</div>
+</article>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; color: #64748B">{{t.expMore}}</p>
+</div>
+</section>
+
+<!-- PROJETS PERSO -->
+<section id="projets" style="width: 100%; display: flex; justify-content: center; padding: 0 16px 64px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.projLabel}}</div>
+<h2 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{t.projTitle}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #475569; max-width: 760px">{{t.projIntro}}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px">
+<sc-for list="{{projects}}" as="p" hint-placeholder-count="2">
+<article style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8">{{p.kind}}</div>
+<h3 style="margin: 0; font-size: 22px; font-weight: 700">{{p.name}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #334155">{{p.desc}}</p>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55; color: #1E293B">
+<sc-for list="{{p.items}}" as="pi" hint-placeholder-count="4">
+<li>{{pi}}</li>
+</sc-for>
+</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
+<sc-for list="{{p.tags}}" as="pt" hint-placeholder-count="5">
+<span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{pt}}</span>
+</sc-for>
+</div>
+</article>
+</sc-for>
+</div>
+<div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 16px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 18px; font-weight: 700">{{t.proBonoTitle}}</div>
+<div style="font-size: 15px; line-height: 1.6; color: #334155">{{t.proBonoText}}</div>
+</div>
+<a href="mailto:SalakdjiMostefa@gmail.com" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; color: #1D4ED8; font-weight: 600; font-size: 14px; border-radius: 10px; border: 1px solid #BFDBFE; background: #FFFFFF">{{t.proBonoCta}}</a>
+</div>
+</div>
+</section>
+
+<!-- METHODE + FORMATION -->
+<section style="width: 100%; display: flex; justify-content: center; padding: 0 16px 64px">
+<div style="width: 100%; max-width: 1120px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px 40px; border-top: 1px solid #E2E8F0; padding-top: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.howLabel}}</div>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #334155">
+<sc-for list="{{how}}" as="hw" hint-placeholder-count="4">
+<li>{{hw}}</li>
+</sc-for>
+</ul>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.eduLabel}}</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 16px; font-weight: 600">{{t.edu1}}</div>
+<div style="font-size: 14px; color: #64748B">CNAM, 2018</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 16px; font-weight: 600">{{t.edu2}}</div>
+<div style="font-size: 14px; color: #64748B">Université Bachir El Ibrahimi, 2017</div>
+</div>
+<div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px">{{t.langLabel}}</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #334155">{{t.langText}}</p>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="width: 100%; display: flex; justify-content: center; padding: 0 16px 72px">
+<div style="width: 100%; max-width: 1120px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 20px; padding: 44px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{t.contactTitle}}</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #475569">{{t.contactText}}</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; min-width: 260px">
+<a href="mailto:SalakdjiMostefa@gmail.com" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #1D4ED8; color: #FFFFFF; font-weight: 600; font-size: 15px; border-radius: 10px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
+SalakdjiMostefa@gmail.com
+</a>
+<a href="https://www.linkedin.com/in/mostefa-s-365382192/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+LinkedIn
+</a>
+</div>
+</div>
+</section>
+
+<footer style="width: 100%; border-top: 1px solid #E2E8F0; display: flex; justify-content: center; padding: 20px 16px">
+<div style="width: 100%; max-width: 1120px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 12px; color: #64748B">
+<span>© 2026 Mostefa Salakdji</span>
+<span>{{t.footer}}</span>
+</div>
+</footer>
+
+</div>
+</template>
+<div id="app"></div>
+<script>
+class DCLogic { constructor(props){ this.props = props || {}; this.state = {}; }
+  setState(p){ Object.assign(this.state, p); render(); } }
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { lang: null };
+}
+renderVals() {
+const lang = this.state.lang || this.props.lang || 'fr';
+const fr = lang === 'fr';
+const on = 'min-height: 36px; padding: 0 12px; border: 0; cursor: pointer; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 600; background: #1D4ED8; color: #FFFFFF';
+const off = 'min-height: 36px; padding: 0 12px; border: 0; cursor: pointer; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #475569';
+
+const T = fr ? {
+refLabel: 'Ils m\'ont fait confiance', techStripLabel: 'Technologies utilisées en production',
+nav1: 'Ce que j\'apporte', nav2: 'Résultats', nav3: 'Expériences', nav4: 'Projets', nav5: 'Contact',
+available: 'Disponible en freelance — [DATE]', location: 'Île-de-France · Hybride ou full remote',
+heroTitle: 'Je conçois et fiabilise des applications métier critiques, dans la banque et l\'e-commerce.',
+heroText: 'Développeur senior full stack Java depuis 8 ans. Mes clients me confient les sujets où une erreur coûte cher : calcul de risque de crédit, tunnel d\'achat à fort trafic, migrations de versions sans interruption de service. Je livre du code testé, documenté et déployé en production — et je reste joignable en astreinte.',
+ctaContact: 'Me contacter', ctaResults: 'Voir mes résultats',
+valueLabel: '01 — Ce que j\'apporte', valueTitle: 'Six choses que vous pouvez me confier',
+valueIntro: 'Chaque bloc est écrit pour un lecteur métier ou RH, avec le détail technique en dessous pour les équipes.',
+techLabel: 'Techniquement :',
+resultsLabel: '02 — Résultats', resultsTitle: 'Des résultats mesurables sur mes missions',
+expLabel: '03 — Expériences', expTitle: 'Missions récentes : contexte, rôle, impact',
+contextLabel: 'Contexte & enjeu', impactLabel: 'Ce que j\'ai livré', stackLabel: 'Technologies :',
+expMore: 'Également : RB Consulting (application PIM Java EE, 2018–2019) · CTI – Algérienne des Eaux (GED et administration réseau, 2015–2016).',
+projLabel: '04 — Projets personnels', projTitle: 'Ce que je construis en dehors des missions',
+projIntro: 'Des produits conçus et livrés de bout en bout — de l\'idée au déploiement — pour de vrais utilisateurs.',
+proBonoTitle: 'Sites web gratuits pour les associations',
+proBonoText: 'Je développe gratuitement des sites web pour les associations à but non lucratif. Si votre association a besoin d\'une présence en ligne, écrivez-moi.',
+proBonoCta: 'Proposer un projet associatif',
+howLabel: 'Comment je travaille',
+eduLabel: 'Formation', edu1: 'Ingénieur — Architecture et ingénierie des systèmes et des logiciels', edu2: 'Master 2 Informatique — Réseaux & Multimédia',
+langLabel: 'Langues', langText: 'Français courant · Anglais courant (équipes internationales au quotidien) · Arabe',
+contactTitle: 'Une mission à démarrer ?', contactText: 'Disponible pour des missions longues en Île-de-France (hybride) ou en full remote. Réponse sous 24 h.',
+footer: 'Senior Full Stack Java · Île-de-France'
+} : {
+refLabel: 'Trusted by', techStripLabel: 'Technologies used in production',
+nav1: 'What I bring', nav2: 'Results', nav3: 'Experience', nav4: 'Projects', nav5: 'Contact',
+available: 'Available for freelance — [DATE]', location: 'Paris area · Hybrid or fully remote',
+heroTitle: 'I design and harden mission-critical business applications in banking and e-commerce.',
+heroText: 'Senior full stack Java engineer with 8 years of experience. Clients hand me the work where mistakes are expensive: credit-risk engines, high-traffic checkouts, version migrations with zero downtime. I deliver tested, documented code running in production — and I stay reachable on call.',
+ctaContact: 'Get in touch', ctaResults: 'See my results',
+valueLabel: '01 — What I bring', valueTitle: 'Six things you can hand me',
+valueIntro: 'Each block is written for business or HR readers, with the technical detail underneath for engineering teams.',
+techLabel: 'Technically:',
+resultsLabel: '02 — Results', resultsTitle: 'Measurable outcomes from my engagements',
+expLabel: '03 — Experience', expTitle: 'Recent engagements: context, role, impact',
+contextLabel: 'Context & stakes', impactLabel: 'What I delivered', stackLabel: 'Technologies:',
+expMore: 'Also: RB Consulting (Java EE PIM application, 2018–2019) · CTI – Algérienne des Eaux (document management and network administration, 2015–2016).',
+projLabel: '04 — Personal projects', projTitle: 'What I build outside client work',
+projIntro: 'Products designed and shipped end to end — from idea to deployment — for real users.',
+proBonoTitle: 'Free websites for non-profits',
+proBonoText: 'I build websites for non-profit associations free of charge. If your association needs an online presence, get in touch.',
+proBonoCta: 'Propose a non-profit project',
+howLabel: 'How I work',
+eduLabel: 'Education', edu1: 'Engineering degree — Systems and Software Architecture', edu2: 'MSc Computer Science — Networks & Multimedia',
+langLabel: 'Languages', langText: 'French (fluent) · English (fluent, daily work with international teams) · Arabic',
+contactTitle: 'Have a project to start?', contactText: 'Available for long-term engagements in the Paris area (hybrid) or fully remote. Reply within 24 hours.',
+footer: 'Senior Full Stack Java · Paris, France'
+};
+
+const heroTags = fr
+? ['Java / Spring Boot', 'Angular / React', 'AWS · CI/CD · Docker', 'SAP Commerce Cloud', 'Banque & Finance', 'Intégration LLM']
+: ['Java / Spring Boot', 'Angular / React', 'AWS · CI/CD · Docker', 'SAP Commerce Cloud', 'Banking & Finance', 'LLM integration'];
+
+const values = fr ? [
+{ h: 'Construire une application métier de A à Z', business: 'Vous décrivez le besoin, je livre l\'application complète : écrans, règles de gestion, base de données, sécurité, mise en production. Vous avez un seul interlocuteur du cadrage au déploiement.', tech: 'Java 8→21, Spring Boot, Spring Security, JPA, Angular 7→17, React, TypeScript, PostgreSQL / Oracle, architecture hexagonale, APIs REST (OpenAPI).' },
+{ h: 'Moderniser un système ancien sans arrêter l\'activité', business: 'Vos applications tournent sur des versions dépassées, coûteuses à maintenir et risquées pour la sécurité. Je les remets à jour progressivement, sans interruption pour vos utilisateurs.', tech: 'Migrations Java 17→21 et Angular 13→17 chez BNP Paribas, refactoring legacy, montée de couverture de tests (JUnit, Mockito), SonarQube.' },
+{ h: 'Automatiser les livraisons et réduire les coûts d\'infrastructure', business: 'Des mises en production plus fréquentes, plus sûres et moins chères : chaque livraison est testée et déployée automatiquement, et les ressources inutiles sont nettoyées.', tech: 'GitLab CI, Jenkins, Docker, AWS (ECS, CloudFormation, S3, Lambda, IAM), IBM Cloud, Infrastructure as Code, monitoring Kibana.' },
+{ h: 'Faire tenir un site e-commerce à fort trafic', business: 'Tunnel d\'achat, paiement, anti-fraude, stock en temps réel, Click & Collect : j\'ai travaillé 3 ans et demi sur les sites de Celio et Conforama, là où chaque panne se compte en chiffre d\'affaires perdu.', tech: 'SAP Commerce Cloud (Hybris) : OCC, Solr, ImpEx, Groovy, Converters / Populators ; intégrations Talend (PIM), Mirakl (marketplace), MuleSoft, Forter, Primer.' },
+{ h: 'Intégrer l\'IA dans vos outils, en respectant la confidentialité', business: 'Des modèles d\'IA hébergés chez vous, sans envoyer vos données à un fournisseur externe — j\'ai mis cela en place en contexte bancaire, là où la confidentialité n\'est pas négociable.', tech: 'LLM open source (Ollama, LLaMA, SLM), Python, benchmarking et tests de performance, intégration dans des applications Spring.' },
+{ h: 'Travailler avec vos équipes, ici ou à l\'étranger', business: 'J\'ai l\'habitude des grandes organisations : équipes réparties entre Paris et l\'Inde, revues de code, méthodes agiles, astreintes de mise en production. Je m\'intègre vite et je documente ce que je fais.', tech: 'Scrum, TDD / BDD, DDD, Clean Architecture, pair programming, code reviews, documentation technique, anglais professionnel quotidien.' }
+] : [
+{ h: 'Build a business application end to end', business: 'You describe the need, I deliver the complete application: screens, business rules, database, security, production rollout. One point of contact from scoping to deployment.', tech: 'Java 8→21, Spring Boot, Spring Security, JPA, Angular 7→17, React, TypeScript, PostgreSQL / Oracle, hexagonal architecture, REST APIs (OpenAPI).' },
+{ h: 'Modernise a legacy system without stopping the business', business: 'Your applications run on outdated versions that are costly to maintain and risky for security. I upgrade them step by step, with no interruption for your users.', tech: 'Java 17→21 and Angular 13→17 migrations at BNP Paribas, legacy refactoring, test coverage increase (JUnit, Mockito), SonarQube.' },
+{ h: 'Automate releases and cut infrastructure costs', business: 'More frequent, safer and cheaper releases: every delivery is tested and deployed automatically, and unused resources are cleaned up.', tech: 'GitLab CI, Jenkins, Docker, AWS (ECS, CloudFormation, S3, Lambda, IAM), IBM Cloud, Infrastructure as Code, Kibana monitoring.' },
+{ h: 'Keep a high-traffic e-commerce site running', business: 'Checkout, payments, anti-fraud, real-time stock, Click & Collect: I spent 3.5 years on the Celio and Conforama websites, where every outage is measured in lost revenue.', tech: 'SAP Commerce Cloud (Hybris): OCC, Solr, ImpEx, Groovy, Converters / Populators; Talend (PIM), Mirakl (marketplace), MuleSoft, Forter, Primer integrations.' },
+{ h: 'Bring AI into your tools while keeping data private', business: 'AI models hosted on your own infrastructure, without sending data to an external provider — I set this up in a banking context, where confidentiality is non-negotiable.', tech: 'Open-source LLMs (Ollama, LLaMA, SLMs), Python, benchmarking and performance testing, integration into Spring applications.' },
+{ h: 'Work with your teams, local or abroad', business: 'I am used to large organisations: teams split between Paris and India, code reviews, agile rituals, production on-call. I onboard fast and document what I do.', tech: 'Scrum, TDD / BDD, DDD, Clean Architecture, pair programming, code reviews, technical documentation, daily professional English.' }
+];
+
+const results = fr ? [
+{ n: '20 → 60 %', h: 'Couverture de tests triplée', p: 'Sur une application bancaire legacy : moins de régressions, mises en production plus sereines.', where: 'BNP Paribas' },
+{ n: '+20 %', h: 'Performance gagnée', p: 'Refactoring d\'un traitement legacy, gain mesuré sur les temps d\'exécution.', where: 'BNP Paribas' },
+{ n: '0', h: 'Interruption de service', p: 'Migrations Java 17 → 21 et Angular 13 → 17 menées sans coupure pour les utilisateurs.', where: 'BNP Paribas' },
+{ n: '−€', h: 'Coûts d\'environnement réduits', p: 'Purge automatisée des images Docker intégrée aux pipelines CI/CD.', where: 'Société Générale' },
+{ n: '3,5 ans', h: 'E-commerce à fort trafic', p: 'Tunnel d\'achat, paiement, anti-fraude et Click & Collect sur celio.com et conforama.fr.', where: 'Celio · Conforama' },
+{ n: '2', h: 'Grandes banques', p: 'Société Générale et BNP Paribas : contextes réglementés, exigences de sécurité et d\'astreinte.', where: 'Depuis 2023' }
+] : [
+{ n: '20 → 60%', h: 'Test coverage tripled', p: 'On a legacy banking application: fewer regressions, calmer production releases.', where: 'BNP Paribas' },
+{ n: '+20%', h: 'Performance gained', p: 'Refactoring of a legacy process, measured on execution time.', where: 'BNP Paribas' },
+{ n: '0', h: 'Service interruption', p: 'Java 17 → 21 and Angular 13 → 17 migrations delivered with no downtime for users.', where: 'BNP Paribas' },
+{ n: '−€', h: 'Environment costs reduced', p: 'Automated Docker image clean-up wired into CI/CD pipelines.', where: 'Société Générale' },
+{ n: '3.5 yrs', h: 'High-traffic e-commerce', p: 'Checkout, payments, anti-fraud and Click & Collect on celio.com and conforama.fr.', where: 'Celio · Conforama' },
+{ n: '2', h: 'Major banks', p: 'Société Générale and BNP Paribas: regulated contexts, security and on-call requirements.', where: 'Since 2023' }
+];
+
+const exps = fr ? [
+{ when: 'Janv. 2026 — aujourd\'hui', co: 'Société Générale', role: 'Projet Jarvis — Senior Full Stack Java / React',
+context: 'Moteur de calcul du risque de crédit : l\'outil qui aide la banque à décider si elle prête, et à quel prix. Enjeux de fiabilité, de performance et de conformité, avec une équipe répartie entre Paris et Bangalore.',
+tags: ['Java 21','Spring Boot','React','AWS ECS','CloudFormation','Trino','Jenkins','Docker'],
+items: [
+'Règles métiers du moteur de risque, optimisation des traitements, intégration aux services internes.',
+'Refonte de composants React : interface plus rapide et plus lisible pour les analystes.',
+'Purge automatisée des images Docker dans les pipelines CI/CD — réduction des coûts d\'environnement.',
+'Infrastructure as Code sur AWS (ECS, CloudFormation, S3, IAM) et stockage interne Scality.',
+'Coordination quotidienne en anglais avec l\'équipe de Bangalore.' ] },
+{ when: 'Déc. 2023 — Janv. 2026', co: 'BNP Paribas', role: 'Projets ASTERIA / ARC — Senior Full Stack Java / Angular',
+context: 'Applications bancaires existantes, devenues difficiles à maintenir : versions obsolètes, peu de tests, chaîne de livraison manuelle. Objectif : moderniser sans arrêter le service.',
+tags: ['Java 17→21','Angular 13→17','Spring Batch','GitLab CI','IBM Cloud','Aspose','Ollama / LLaMA'],
+items: [
+'Migration complète Java 17 → 21 et Angular 13 → 17, sans interruption pour les utilisateurs.',
+'Passage de Jenkins à GitLab CI : build, release et déploiement IBM Cloud automatisés.',
+'Couverture de tests de 20 % à 60 % ; refactoring legacy avec +20 % de performance mesurée.',
+'Génération de rapports Excel / PDF avec Aspose et visualisation Excel dans le navigateur.',
+'Intégration de LLM open source (Ollama, LLaMA) hébergés en interne : benchmarks et tests de performance.',
+'Astreintes de mise en production.' ] },
+{ when: 'Avr. 2022 — Nov. 2023', co: 'Conforama', role: 'conforama.fr — Full Stack Java / SAP Commerce Cloud',
+context: 'Site e-commerce à fort trafic. Chaque minute d\'indisponibilité du tunnel d\'achat se traduit en commandes perdues ; la fraude et le paiement sont des sujets quotidiens.',
+tags: ['SAP Commerce (Hybris)','Java 17','Groovy','ImpEx','Talend','Mirakl','Forter','Primer'],
+items: [
+'Refonte complète du tunnel d\'achat.',
+'Anti-fraude (Forter), paiement (Primer) et offre de location longue durée.',
+'Synchronisation du catalogue avec le PIM (Talend) et la marketplace Mirakl.',
+'Scripts de purge et décommissionnement de modules obsolètes.' ] },
+{ when: 'Oct. 2019 — Mars 2022', co: 'Celio', role: 'celio.com — Full Stack Java / Angular / Hybris',
+context: 'Enseigne de prêt-à-porter : relier le site web, les magasins et les stocks pour vendre partout avec une seule source de vérité.',
+tags: ['SAP Hybris OCC','Angular','Solr','MuleSoft','Swagger'],
+items: [
+'APIs pour l\'application de vente en magasin et les modules internes.',
+'Click & Collect avec stock en temps réel et notifications clients.',
+'Flux produits, commandes et clients via MuleSoft.',
+'Optimisation de la recherche produit (Solr).' ] }
+] : [
+{ when: 'Jan 2026 — present', co: 'Société Générale', role: 'Jarvis project — Senior Full Stack Java / React',
+context: 'Credit-risk engine: the tool that helps the bank decide whether to lend, and at what price. Reliability, performance and compliance stakes, with a team split between Paris and Bangalore.',
+tags: ['Java 21','Spring Boot','React','AWS ECS','CloudFormation','Trino','Jenkins','Docker'],
+items: [
+'Business rules of the risk engine, processing optimisation, integration with internal services.',
+'React component redesign: faster, clearer interface for analysts.',
+'Automated Docker image clean-up in CI/CD pipelines — lower environment costs.',
+'Infrastructure as Code on AWS (ECS, CloudFormation, S3, IAM) and internal Scality storage.',
+'Daily coordination in English with the Bangalore team.' ] },
+{ when: 'Dec 2023 — Jan 2026', co: 'BNP Paribas', role: 'ASTERIA / ARC projects — Senior Full Stack Java / Angular',
+context: 'Existing banking applications that had become hard to maintain: outdated versions, few tests, manual delivery chain. Goal: modernise without stopping the service.',
+tags: ['Java 17→21','Angular 13→17','Spring Batch','GitLab CI','IBM Cloud','Aspose','Ollama / LLaMA'],
+items: [
+'Full Java 17 → 21 and Angular 13 → 17 migration with no user downtime.',
+'Jenkins to GitLab CI: automated build, release and IBM Cloud deployment.',
+'Test coverage from 20% to 60%; legacy refactoring with a measured +20% performance gain.',
+'Excel / PDF report generation with Aspose and in-browser Excel viewing.',
+'Integration of self-hosted open-source LLMs (Ollama, LLaMA): benchmarks and performance tests.',
+'Production release on-call.' ] },
+{ when: 'Apr 2022 — Nov 2023', co: 'Conforama', role: 'conforama.fr — Full Stack Java / SAP Commerce Cloud',
+context: 'High-traffic e-commerce site. Every minute of checkout downtime means lost orders; fraud and payments are daily concerns.',
+tags: ['SAP Commerce (Hybris)','Java 17','Groovy','ImpEx','Talend','Mirakl','Forter','Primer'],
+items: [
+'Complete checkout redesign.',
+'Anti-fraud (Forter), payments (Primer) and long-term rental offer.',
+'Catalogue synchronisation with the PIM (Talend) and the Mirakl marketplace.',
+'Purge scripts and decommissioning of obsolete modules.' ] },
+{ when: 'Oct 2019 — Mar 2022', co: 'Celio', role: 'celio.com — Full Stack Java / Angular / Hybris',
+context: 'Fashion retailer: connect the website, the stores and the stock to sell everywhere from a single source of truth.',
+tags: ['SAP Hybris OCC','Angular','Solr','MuleSoft','Swagger'],
+items: [
+'APIs for the in-store sales app and internal modules.',
+'Click & Collect with real-time stock and customer notifications.',
+'Product, order and customer flows via MuleSoft.',
+'Product search optimisation (Solr).' ] }
+];
+
+const projects = fr ? [
+{ kind: 'Produit mobile B2B — en cours', name: 'Baby Powder B2B', desc: 'Plateforme de commande en gros pour l\'Algérie : les commerçants commandent depuis leur téléphone, le grossiste gère ses commandes, son stock et sa caisse dans une seule application.', items: [
+'Deux apps Android Flutter (acheteur / vendeur), backend Spring Boot Kotlin, PostgreSQL avec isolation par vendeur.',
+'Validation des commerçants, double tarification carton / pièce, stock, promotions, minimum de commande.',
+'Cycle de commande complet, paiement à la livraison ou BaridiMob, caisse, achats fournisseurs, journal d\'audit, rapports PDF / Excel.',
+'Thème par vendeur, espace administrateur, hébergement Hetzner.' ], tags: ['Flutter','Kotlin','Spring Boot','PostgreSQL','Hetzner','Hexagonal'] },
+{ kind: 'Site associatif — gratuit', name: 'Solidarité Zemoura', desc: 'Site web d\'une association franco-algérienne (Saint-Chamond ↔ Zemoura) : présentation des actions, dons et espace d\'administration pour les bénévoles.', items: [
+'Site responsive, rapide sur mobile.',
+'Dons par virement (IBAN / BIC) avec un parcours clair pour les donateurs.',
+'Espace admin pour gérer les événements (Ramadan, Aïds, fin d\'année, actions à Zemoura).',
+'Réalisé bénévolement.' ], tags: ['HTML / CSS','JavaScript','Responsive','Admin'] }
+] : [
+{ kind: 'B2B mobile product — in progress', name: 'Baby Powder B2B', desc: 'Wholesale ordering platform for Algeria: retailers order from their phone, the wholesaler manages orders, stock and point of sale in a single app.', items: [
+'Two Android Flutter apps (buyer / seller), Spring Boot Kotlin backend, PostgreSQL with per-vendor isolation.',
+'Retailer validation, dual carton / unit pricing, stock, promotions, minimum order.',
+'Full order lifecycle, cash on delivery or BaridiMob, point of sale, supplier purchases, audit log, PDF / Excel reports.',
+'Per-vendor theme, admin area, hosted on Hetzner.' ], tags: ['Flutter','Kotlin','Spring Boot','PostgreSQL','Hetzner','Hexagonal'] },
+{ kind: 'Non-profit website — free', name: 'Solidarité Zemoura', desc: 'Website for a French-Algerian association (Saint-Chamond ↔ Zemoura): activities, donations and an admin area for volunteers.', items: [
+'Responsive site, fast on mobile.',
+'Bank-transfer donations (IBAN / BIC) with a clear donor journey.',
+'Admin area to manage events (Ramadan, Eid, year-end, actions in Zemoura).',
+'Built on a volunteer basis.' ], tags: ['HTML / CSS','JavaScript','Responsive','Admin'] }
+];
+
+const how = fr ? [
+'Je commence par comprendre le métier : à quoi sert l\'application, qui l\'utilise, ce qui coûte cher quand ça casse.',
+'Je livre par étapes courtes, testées et déployées — vous voyez l\'avancement chaque semaine, pas à la fin.',
+'Je documente et je transmets : l\'équipe peut reprendre le code sans moi.',
+'Je dis ce qui est risqué avant, pas après.'
+] : [
+'I start by understanding the business: what the application is for, who uses it, what is expensive when it breaks.',
+'I deliver in short, tested, deployed increments — you see progress every week, not at the end.',
+'I document and hand over: the team can take the code on without me.',
+'I flag risks before, not after.'
+];
+
+const clients = [
+{ n: 'Société Générale', logo: 'assets/logos/sg.png', s: fr ? 'Banque · 2026' : 'Banking · 2026' },
+{ n: 'BNP Paribas', logo: 'assets/logos/bnp.png', s: fr ? 'Banque · 2023–2026' : 'Banking · 2023–2026' },
+{ n: 'Conforama', logo: 'assets/logos/conforama.png', s: 'E-commerce · 2022–2023' },
+{ n: 'Celio', logo: 'assets/logos/celio.png', s: 'E-commerce · 2019–2022' }
+];
+const techs = [
+{ n: 'Java', src: 'assets/tech/openjdk.svg' },
+{ n: 'Spring Boot', src: 'assets/tech/springboot.svg' },
+{ n: 'Angular', src: 'assets/tech/angular.svg' },
+{ n: 'React', src: 'assets/tech/react.svg' },
+{ n: 'TypeScript', src: 'assets/tech/typescript.svg' },
+{ n: 'Kotlin', src: 'assets/tech/kotlin.svg' },
+{ n: 'Flutter', src: 'assets/tech/flutter.svg' },
+{ n: 'Python', src: 'assets/tech/python.svg' },
+{ n: 'SAP Commerce', src: 'assets/tech/sap.svg' },
+{ n: 'PostgreSQL', src: 'assets/tech/postgresql.svg' },
+{ n: 'AWS', src: 'assets/tech/amazonwebservices.svg' },
+{ n: 'Docker', src: 'assets/tech/docker.svg' },
+{ n: 'GitLab CI', src: 'assets/tech/gitlab.svg' },
+{ n: 'Jenkins', src: 'assets/tech/jenkins.svg' },
+{ n: 'SonarQube', src: 'assets/tech/sonarqube.svg' },
+{ n: 'Ollama', src: 'assets/tech/ollama.svg' }
+];
+return {
+t: T, heroTags, clients, techs, values, results, exps, projects, how,
+frBtn: fr ? on : off, enBtn: fr ? off : on,
+setFr: () => this.setState({ lang: 'fr' }),
+setEn: () => this.setState({ lang: 'en' })
+};
+}
+}
+
+const comp = new Component({ lang: 'fr' });
+function get(scope, path){ path = path.trim();
+  if (path === 'true') return true; if (path === 'false') return false;
+  return path.split('.').reduce((o,k)=> o==null ? undefined : o[k], scope); }
+function interp(str, scope){
+  const m = str.match(/^\{\{([^}]+)\}\}$/);
+  if (m) return get(scope, m[1]);
+  return str.replace(/\{\{([^}]+)\}\}/g, (_, p) => { const v = get(scope, p); return v == null ? '' : v; }); }
+function build(node, scope, parent){
+  if (node.nodeType === 3){ parent.appendChild(document.createTextNode(interp(node.nodeValue, scope))); return; }
+  if (node.nodeType !== 1) return;
+  const tag = node.tagName.toLowerCase();
+  if (tag === 'sc-for'){
+    const list = interp(node.getAttribute('list'), scope) || []; const as = node.getAttribute('as');
+    list.forEach((item, i) => { const s = Object.assign({}, scope, {[as]: item, $index: i});
+      node.childNodes.forEach(c => build(c, s, parent)); }); return; }
+  if (tag === 'sc-if'){ if (interp(node.getAttribute('value'), scope)) node.childNodes.forEach(c => build(c, scope, parent)); return; }
+  const el = node.namespaceURI === 'http://www.w3.org/1999/xhtml' ? document.createElement(node.localName) : document.createElementNS(node.namespaceURI, node.localName);
+  for (const a of node.attributes){
+    if (a.name === 'onclick'){ const fn = interp(a.value, scope); if (typeof fn === 'function') el.addEventListener('click', fn); continue; }
+    if (a.name.startsWith('hint-')) continue;
+    el.setAttribute(a.name, interp(a.value, scope)); }
+  const kids = tag === 'template' ? node.content.childNodes : node.childNodes;
+  kids.forEach(c => build(c, scope, el)); parent.appendChild(el); }
+function render(){
+  const app = document.getElementById('app'); const y = window.scrollY;
+  const frag = document.createDocumentFragment();
+  const vals = comp.renderVals();
+  document.getElementById('tpl').content.childNodes.forEach(c => build(c, vals, frag));
+  app.replaceChildren(frag); document.documentElement.lang = vals.t && vals.t.nav5 && comp.state.lang ? comp.state.lang : document.documentElement.lang;
+  window.scrollTo(0, y); }
+render();
+</script>
+</body>
+</html>
