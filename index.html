@@ -7,11 +7,16 @@
 <meta name="description" content="Développeur senior full stack Java / Spring Boot / Angular / React — banque et e-commerce. Disponible en freelance, Île-de-France et remote.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#FFFFFF;color:#0F172A;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#FFFFFF;color:#0F172A;font-family:Inter,'Noto Sans Arabic',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 *{box-sizing:border-box}
+.tip{position:relative}
+.tipbox{display:none;position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);width:max-content;max-width:min(260px,80vw);background:#0F172A;color:#F8FAFC;font-size:13px;font-weight:400;line-height:1.5;padding:10px 12px;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,.18);z-index:50;text-align:start;white-space:normal;pointer-events:none}
+.tipbox::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#0F172A}
+.tip:hover .tipbox,.tip:focus .tipbox,.tip:focus-visible .tipbox{display:block}
+@media (max-width:640px){.tipbox{position:fixed;left:16px;right:16px;bottom:16px;top:auto;transform:none;width:auto;max-width:none;font-size:14px;padding:14px 16px}.tipbox::after{display:none}}
 </style>
 
 <style>html{scroll-behavior:smooth}h1{font-size:clamp(30px,6vw,44px)!important}</style>
@@ -19,7 +24,7 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <body>
 <template id="tpl">
 
-<div style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #0F172A; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; align-items: stretch">
+<div dir="{{dir}}" lang="{{lang}}" style="width: 100%; min-height: 100vh; background: #FFFFFF; color: #0F172A; font-family: Inter, 'Noto Sans Arabic', system-ui, sans-serif; display: flex; flex-direction: column; align-items: stretch">
 
 <!-- NAV -->
 <header style="position: relative; width: 100%; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: center">
@@ -31,9 +36,10 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <a href="#experiences" style="color: #475569">{{t.nav3}}</a>
 <a href="#projets" style="color: #475569">{{t.nav4}}</a>
 <a href="#contact" style="color: #475569">{{t.nav5}}</a>
-<div style="display: flex; border: 1px solid #CBD5E1; border-radius: 8px; overflow: hidden; margin-left: 8px" role="group" aria-label="Langue / Language">
+<div style="display: flex; border: 1px solid #CBD5E1; border-radius: 8px; overflow: hidden; margin-inline-start: 8px" role="group" aria-label="Langue / Language / اللغة">
 <button type="button" onClick="{{setFr}}" style="{{frBtn}}">FR</button>
 <button type="button" onClick="{{setEn}}" style="{{enBtn}}">EN</button>
+<button type="button" onClick="{{setAr}}" style="{{arBtn}}">عربي</button>
 </div>
 </div>
 </nav>
@@ -53,9 +59,11 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #334155; max-width: 800px">{{t.heroText}}</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <sc-for list="{{heroTags}}" as="h" hint-placeholder-count="5">
-<span style="font-size: 14px; font-weight: 500; color: #334155; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 6px 12px">{{h}}</span>
+<sc-if value="{{h.has}}" hint-placeholder-val="{{true}}"><button type="button" class="tip" style="display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 14px; font-weight: 500; color: #334155; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 6px 12px; cursor: help">{{h.label}}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span class="tipbox" role="tooltip">{{h.info}}</span></button></sc-if>
+<sc-if value="{{h.notip}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; font-weight: 500; color: #334155; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 6px 12px">{{h.label}}</span></sc-if>
 </sc-for>
 </div>
+<p style="margin: 0; font-size: 13px; color: #64748B">{{t.tipHint}}</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px">
 <a href="mailto:SalakdjiMostefa@gmail.com" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; background: #1D4ED8; color: #FFFFFF; font-weight: 600; font-size: 15px; border-radius: 10px">{{t.ctaContact}}</a>
 <a href="#resultats" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">{{t.ctaResults}}</a>
@@ -104,10 +112,11 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.techStripLabel}}</div>
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px">
 <sc-for list="{{techs}}" as="tc" hint-placeholder-count="16">
-<div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<button type="button" class="tip" style="font-family: inherit; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: help">
 <img src="{{tc.src}}" alt="" style="width: 32px; height: 32px; object-fit: contain">
-<span style="font-size: 13px; font-weight: 500; color: #334155; text-align: center">{{tc.n}}</span>
-</div>
+<span style="display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: #334155; text-align: center">{{tc.n}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></span>
+<span class="tipbox" role="tooltip">{{tc.info}}</span>
+</button>
 </sc-for>
 </div>
 </div>
@@ -157,7 +166,7 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
 <div style="font-size: 13px; font-weight: 600; color: #1D4ED8; text-transform: uppercase; letter-spacing: 0.04em">{{t.impactLabel}}</div>
-<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.55; color: #1E293B">
+<ul style="margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.55; color: #1E293B">
 <sc-for list="{{e.items}}" as="it" hint-placeholder-count="4">
 <li>{{it}}</li>
 </sc-for>
@@ -167,7 +176,8 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <div style="padding-top: 14px; border-top: 1px dashed #E2E8F0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px">
 <span style="font-size: 13px; font-weight: 600; color: #475569; margin-right: 4px">{{t.stackLabel}}</span>
 <sc-for list="{{e.tags}}" as="tg" hint-placeholder-count="6">
-<span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{tg}}</span>
+<sc-if value="{{tg.has}}" hint-placeholder-val="{{true}}"><button type="button" class="tip" style="display: inline-flex; align-items: center; gap: 5px; font-family: inherit; font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px; cursor: help">{{tg.label}}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span class="tipbox" role="tooltip">{{tg.info}}</span></button></sc-if>
+<sc-if value="{{tg.notip}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{tg.label}}</span></sc-if>
 </sc-for>
 </div>
 </article>
@@ -191,14 +201,28 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <div style="font-size: 13px; font-weight: 600; color: #1D4ED8">{{p.kind}}</div>
 <h3 style="margin: 0; font-size: 22px; font-weight: 700">{{p.name}}</h3>
 <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #334155">{{p.desc}}</p>
-<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55; color: #1E293B">
+<sc-if value="{{p.hasShots}}" hint-placeholder-val="{{false}}"><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{p.shots}}" as="sh" hint-placeholder-count="2">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 6px">
+<img src="{{sh.src}}" alt="{{sh.cap}}" style="display: block; width: 100%; aspect-ratio: 9 / 14; object-fit: cover; object-position: top; border-radius: 14px; border: 1px solid #E2E8F0; background: #F8FAFC">
+<figcaption style="font-size: 12px; color: #64748B; text-align: center">{{sh.cap}}</figcaption>
+</figure>
+</sc-for>
+</div></sc-if>
+<ul style="margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55; color: #1E293B">
 <sc-for list="{{p.items}}" as="pi" hint-placeholder-count="4">
 <li>{{pi}}</li>
 </sc-for>
 </ul>
 <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
 <sc-for list="{{p.tags}}" as="pt" hint-placeholder-count="5">
-<span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{pt}}</span>
+<sc-if value="{{pt.has}}" hint-placeholder-val="{{true}}"><button type="button" class="tip" style="display: inline-flex; align-items: center; gap: 5px; font-family: inherit; font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px; cursor: help">{{pt.label}}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span class="tipbox" role="tooltip">{{pt.info}}</span></button></sc-if>
+<sc-if value="{{pt.notip}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #334155; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 4px 8px">{{pt.label}}</span></sc-if>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px">
+<sc-for list="{{p.links}}" as="lk" hint-placeholder-count="2">
+<a href="{{lk.href}}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: #1D4ED8; color: #FFFFFF; font-weight: 600; font-size: 14px; border-radius: 10px">{{lk.label}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
 </sc-for>
 </div>
 </article>
@@ -220,7 +244,7 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <div style="width: 100%; max-width: 1120px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px 40px; border-top: 1px solid #E2E8F0; padding-top: 40px">
 <div style="display: flex; flex-direction: column; gap: 12px">
 <div style="font-size: 13px; font-weight: 600; color: #1D4ED8; letter-spacing: 0.06em; text-transform: uppercase">{{t.howLabel}}</div>
-<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #334155">
+<ul style="margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: #334155">
 <sc-for list="{{how}}" as="hw" hint-placeholder-count="4">
 <li>{{hw}}</li>
 </sc-for>
@@ -254,6 +278,14 @@ a{color:#1D4ED8;text-decoration:none}a:hover{color:#1E40AF}
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
 SalakdjiMostefa@gmail.com
 </a>
+<a href="tel:+33645503040" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span dir="ltr">+33 6 45 50 30 40</span>
+</a>
+<a href="https://wa.me/33645503040" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">
+<img src="assets/tech/whatsapp.svg" alt="" style="width: 18px; height: 18px">
+WhatsApp
+</a>
 <a href="https://www.linkedin.com/in/mostefa-s-365382192/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #FFFFFF; color: #0F172A; font-weight: 600; font-size: 15px; border-radius: 10px; border: 1px solid #CBD5E1">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
 LinkedIn
@@ -284,13 +316,14 @@ this.state = { lang: null };
 renderVals() {
 const lang = this.state.lang || this.props.lang || 'fr';
 const fr = lang === 'fr';
+const ar = lang === 'ar';
 const on = 'min-height: 36px; padding: 0 12px; border: 0; cursor: pointer; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 600; background: #1D4ED8; color: #FFFFFF';
 const off = 'min-height: 36px; padding: 0 12px; border: 0; cursor: pointer; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 600; background: #FFFFFF; color: #475569';
 
 const T = fr ? {
 refLabel: 'Ils m\'ont fait confiance', techStripLabel: 'Technologies utilisées en production',
 nav1: 'Ce que j\'apporte', nav2: 'Résultats', nav3: 'Expériences', nav4: 'Projets', nav5: 'Contact',
-available: 'Disponible en freelance — [DATE]', location: 'Île-de-France · Hybride ou full remote',
+available: 'Disponible en freelance', tipHint: 'Survolez ou touchez un terme marqué ⓘ pour une explication simple.', location: 'Île-de-France · Hybride ou full remote',
 heroTitle: 'Je conçois et fiabilise des applications métier critiques, dans la banque et l\'e-commerce.',
 heroText: 'Développeur senior full stack Java depuis 8 ans. Mes clients me confient les sujets où une erreur coûte cher : calcul de risque de crédit, tunnel d\'achat à fort trafic, migrations de versions sans interruption de service. Je livre du code testé, documenté et déployé en production — et je reste joignable en astreinte.',
 ctaContact: 'Me contacter', ctaResults: 'Voir mes résultats',
@@ -314,7 +347,7 @@ footer: 'Senior Full Stack Java · Île-de-France'
 } : {
 refLabel: 'Trusted by', techStripLabel: 'Technologies used in production',
 nav1: 'What I bring', nav2: 'Results', nav3: 'Experience', nav4: 'Projects', nav5: 'Contact',
-available: 'Available for freelance — [DATE]', location: 'Paris area · Hybrid or fully remote',
+available: 'Available for freelance', tipHint: 'Hover or tap any term marked ⓘ for a plain-language explanation.', location: 'Paris area · Hybrid or fully remote',
 heroTitle: 'I design and harden mission-critical business applications in banking and e-commerce.',
 heroText: 'Senior full stack Java engineer with 8 years of experience. Clients hand me the work where mistakes are expensive: credit-risk engines, high-traffic checkouts, version migrations with zero downtime. I deliver tested, documented code running in production — and I stay reachable on call.',
 ctaContact: 'Get in touch', ctaResults: 'See my results',
@@ -507,9 +540,177 @@ const techs = [
 { n: 'SonarQube', src: 'assets/tech/sonarqube.svg' },
 { n: 'Ollama', src: 'assets/tech/ollama.svg' }
 ];
+const AR = {
+t: {
+refLabel: 'وثقوا بي', techStripLabel: 'تقنيات استخدمتها في بيئة الإنتاج',
+nav1: 'ما أقدمه', nav2: 'النتائج', nav3: 'الخبرات', nav4: 'المشاريع', nav5: 'تواصل',
+available: 'متاح للعمل الحر', tipHint: 'مرّر المؤشر أو اضغط على أي مصطلح يحمل ⓘ لشرح مبسّط.', location: 'إيل دو فرانس (باريس) · حضوري أو عن بُعد',
+heroTitle: 'أصمّم تطبيقات أعمال حساسة وأجعلها موثوقة، في القطاع البنكي والتجارة الإلكترونية.',
+heroText: 'مطوّر Full Stack Java أول منذ 8 سنوات. يعهد إليّ عملائي بالمشاريع التي يكون فيها الخطأ مكلفًا: محرّك حساب مخاطر القروض، مسار الشراء في مواقع ذات زيارات كثيفة، وتحديث الأنظمة دون أي انقطاع في الخدمة. أسلّم شيفرة مختبرة وموثّقة ومنشورة في الإنتاج — وأبقى متاحًا في فترات المناوبة.',
+ctaContact: 'تواصل معي', ctaResults: 'اطّلع على نتائجي',
+valueLabel: '01 — ما أقدمه', valueTitle: 'ستة أشياء يمكنك أن تعهد بها إليّ',
+valueIntro: 'كل فقرة مكتوبة لقارئ من الإدارة أو الموارد البشرية، مع التفاصيل التقنية أسفلها لفرق التطوير.',
+techLabel: 'تقنيًا:',
+resultsLabel: '02 — النتائج', resultsTitle: 'نتائج ملموسة في مهامي',
+expLabel: '03 — الخبرات', expTitle: 'المهام الأخيرة: السياق، الدور، الأثر',
+contextLabel: 'السياق والرهان', impactLabel: 'ما أنجزته', stackLabel: 'التقنيات:',
+expMore: 'أيضًا: RB Consulting (تطبيق PIM بـ Java EE، 2018–2019) · CTI – الجزائرية للمياه (إدارة الوثائق الإلكترونية وإدارة الشبكات، 2015–2016).',
+projLabel: '04 — مشاريع شخصية', projTitle: 'ما أبنيه خارج المهام',
+projIntro: 'منتجات صمّمتها وأطلقتها من البداية إلى النهاية — من الفكرة إلى النشر — لمستخدمين حقيقيين.',
+proBonoTitle: 'مواقع ويب مجانية للجمعيات',
+proBonoText: 'أطوّر مجانًا مواقع ويب للجمعيات غير الربحية. إذا كانت جمعيتكم تحتاج إلى حضور على الإنترنت، راسلوني.',
+proBonoCta: 'اقترح مشروعًا لجمعية',
+howLabel: 'طريقة عملي',
+eduLabel: 'التكوين', edu1: 'مهندس — هندسة ومعمارية الأنظمة والبرمجيات', edu2: 'ماستر 2 في الإعلام الآلي — الشبكات والوسائط المتعددة',
+langLabel: 'اللغات', langText: 'العربية · الفرنسية (بطلاقة) · الإنجليزية (بطلاقة، عمل يومي مع فرق دولية)',
+contactTitle: 'لديك مشروع تريد إطلاقه؟', contactText: 'متاح لمهام طويلة المدى في منطقة باريس (حضوري جزئيًا) أو عن بُعد بالكامل. أردّ خلال 24 ساعة.',
+footer: 'Senior Full Stack Java · باريس، فرنسا'
+},
+heroTags: ['Java / Spring Boot', 'Angular / React', 'AWS · CI/CD · Docker', 'SAP Commerce Cloud', 'البنوك والمالية', 'دمج نماذج الذكاء الاصطناعي (LLM)'],
+clients: [
+{ n: 'Société Générale', logo: clients[0].logo, s: 'بنك · 2026' },
+{ n: 'BNP Paribas', logo: clients[1].logo, s: 'بنك · 2023–2026' },
+{ n: 'Conforama', logo: clients[2].logo, s: 'تجارة إلكترونية · 2022–2023' },
+{ n: 'Celio', logo: clients[3].logo, s: 'تجارة إلكترونية · 2019–2022' }
+],
+values: [
+{ h: 'بناء تطبيق أعمال من الألف إلى الياء', business: 'تصف الحاجة، وأسلّم التطبيق كاملًا: الواجهات، قواعد العمل، قاعدة البيانات، الأمان، والنشر في الإنتاج. محاور واحد من تحديد المتطلبات إلى التشغيل.', tech: values[0].tech },
+{ h: 'تحديث نظام قديم دون إيقاف النشاط', business: 'تطبيقاتك تعمل بإصدارات قديمة، مكلفة في الصيانة وخطيرة على الأمان. أحدّثها تدريجيًا دون أي انقطاع لمستخدميك.', tech: values[1].tech },
+{ h: 'أتمتة النشر وخفض تكاليف البنية التحتية', business: 'إصدارات أكثر تواترًا وأمانًا وأقل كلفة: كل تسليم يُختبر ويُنشر تلقائيًا، وتُحذف الموارد غير المستعملة.', tech: values[2].tech },
+{ h: 'ضمان استمرارية موقع تجارة إلكترونية ذي زيارات كثيفة', business: 'مسار الشراء، الدفع، مكافحة الاحتيال، المخزون اللحظي، والاستلام من المتجر: عملت ثلاث سنوات ونصفًا على موقعي Celio وConforama، حيث تُقاس كل عطل بالمبيعات الضائعة.', tech: values[3].tech },
+{ h: 'دمج الذكاء الاصطناعي في أدواتك مع حماية البيانات', business: 'نماذج ذكاء اصطناعي مستضافة لديك، دون إرسال بياناتك إلى مزوّد خارجي — نفّذت ذلك في بيئة بنكية حيث السرّية غير قابلة للتفاوض.', tech: values[4].tech },
+{ h: 'العمل مع فرقك، هنا أو في الخارج', business: 'معتاد على المؤسسات الكبرى: فرق موزّعة بين باريس والهند، مراجعات الشيفرة، منهجيات Agile، والمناوبة عند النشر. أندمج بسرعة وأوثّق ما أقوم به.', tech: values[5].tech }
+],
+results: [
+{ n: '20 → 60 %', h: 'تغطية الاختبارات تضاعفت 3 مرات', p: 'على تطبيق بنكي قديم: أخطاء أقل وإصدارات أكثر هدوءًا.', where: 'BNP Paribas' },
+{ n: '+20 %', h: 'تحسّن في الأداء', p: 'إعادة هيكلة معالجة قديمة، مع قياس المكسب في زمن التنفيذ.', where: 'BNP Paribas' },
+{ n: '0', h: 'انقطاع في الخدمة', p: 'ترحيل Java من 17 إلى 21 وAngular من 13 إلى 17 دون أي توقف للمستخدمين.', where: 'BNP Paribas' },
+{ n: '−€', h: 'خفض تكاليف البيئات', p: 'حذف تلقائي لصور Docker ضمن سلاسل CI/CD.', where: 'Société Générale' },
+{ n: '3.5 سنوات', h: 'تجارة إلكترونية ذات زيارات كثيفة', p: 'مسار الشراء، الدفع، مكافحة الاحتيال والاستلام من المتجر على celio.com وconforama.fr.', where: 'Celio · Conforama' },
+{ n: '2', h: 'بنكان كبيران', p: 'Société Générale وBNP Paribas: بيئات خاضعة للتنظيم، مع متطلبات أمان ومناوبة.', where: 'منذ 2023' }
+],
+exps: [
+{ when: 'يناير 2026 — حتى الآن', co: 'Société Générale', role: 'مشروع Jarvis — Senior Full Stack Java / React', tags: exps[0].tags,
+context: 'محرّك حساب مخاطر القروض: الأداة التي تساعد البنك على قرار منح القرض وبأي سعر. رهانات الموثوقية والأداء والامتثال، مع فريق موزّع بين باريس وبنغالور.',
+items: [
+'قواعد العمل في محرّك المخاطر، تحسين المعالجات، والتكامل مع الخدمات الداخلية.',
+'إعادة تصميم مكوّنات React: واجهة أسرع وأوضح للمحللين.',
+'حذف تلقائي لصور Docker ضمن سلاسل CI/CD — خفض تكاليف البيئات.',
+'البنية التحتية كشيفرة على AWS (ECS، CloudFormation، S3، IAM) والتخزين الداخلي Scality.',
+'تنسيق يومي بالإنجليزية مع فريق بنغالور.' ] },
+{ when: 'ديسمبر 2023 — يناير 2026', co: 'BNP Paribas', role: 'مشاريع ASTERIA / ARC — Senior Full Stack Java / Angular', tags: exps[1].tags,
+context: 'تطبيقات بنكية قائمة أصبحت صيانتها صعبة: إصدارات قديمة، اختبارات قليلة، ونشر يدوي. الهدف: التحديث دون إيقاف الخدمة.',
+items: [
+'ترحيل كامل من Java 17 إلى 21 ومن Angular 13 إلى 17 دون انقطاع للمستخدمين.',
+'الانتقال من Jenkins إلى GitLab CI: أتمتة البناء والإصدار والنشر على IBM Cloud.',
+'رفع تغطية الاختبارات من 20 % إلى 60 %؛ إعادة هيكلة الشيفرة القديمة مع تحسّن مقيس في الأداء بنسبة 20 %.',
+'إنشاء تقارير Excel / PDF بـ Aspose وعرض ملفات Excel داخل المتصفح.',
+'دمج نماذج لغوية مفتوحة المصدر (Ollama، LLaMA) مستضافة داخليًا: مقارنات واختبارات أداء.',
+'مناوبة أثناء النشر في الإنتاج.' ] },
+{ when: 'أبريل 2022 — نوفمبر 2023', co: 'Conforama', role: 'conforama.fr — Full Stack Java / SAP Commerce Cloud', tags: exps[2].tags,
+context: 'موقع تجارة إلكترونية ذو زيارات كثيفة: كل دقيقة توقف في مسار الشراء تعني طلبات ضائعة، والاحتيال والدفع موضوعان يوميان.',
+items: [
+'إعادة تصميم كاملة لمسار الشراء.',
+'مكافحة الاحتيال (Forter)، الدفع (Primer)، وعرض الإيجار طويل المدى.',
+'مزامنة الكتالوج مع نظام PIM (Talend) وسوق Mirakl.',
+'سكربتات تنظيف وإيقاف وحدات قديمة.' ] },
+{ when: 'أكتوبر 2019 — مارس 2022', co: 'Celio', role: 'celio.com — Full Stack Java / Angular / Hybris', tags: exps[3].tags,
+context: 'علامة ملابس جاهزة: ربط الموقع والمتاجر والمخزون للبيع في كل مكان انطلاقًا من مصدر بيانات واحد.',
+items: [
+'واجهات برمجية (APIs) لتطبيق البيع في المتاجر والوحدات الداخلية.',
+'خدمة Click & Collect مع مخزون لحظي وإشعارات للعملاء.',
+'تدفّقات المنتجات والطلبات والعملاء عبر MuleSoft.',
+'تحسين البحث عن المنتجات (Solr).' ] }
+],
+projects: [
+{ kind: 'منتج جوّال B2B — قيد التطوير', name: 'Baby Powder B2B', desc: 'منصّة طلبيات بالجملة في الجزائر: يطلب التجّار من هواتفهم، ويدير تاجر الجملة طلبياته ومخزونه وصندوقه في تطبيق واحد.', items: [
+'تطبيقا Android بـ Flutter (المشتري / البائع)، خادم Spring Boot Kotlin، وPostgreSQL مع عزل بيانات كل بائع.',
+'التحقق من التجّار، تسعير مزدوج بالكرتون / بالقطعة، المخزون، العروض، والحد الأدنى للطلب.',
+'دورة طلب كاملة، الدفع عند التسليم أو عبر BaridiMob، صندوق، مشتريات المورّدين، سجل تدقيق، وتقارير PDF / Excel.',
+'هوية بصرية لكل بائع، فضاء للمسيّر، واستضافة على Hetzner.' ], tags: projects[0].tags },
+{ kind: 'موقع جمعية — مجانًا', name: 'Solidarité Zemoura', desc: 'موقع جمعية فرنسية جزائرية (سانت شامون ↔ زمورة): التعريف بالأنشطة، التبرعات، وفضاء إدارة للمتطوعين.', items: [
+'موقع متجاوب وسريع على الهاتف.',
+'تبرعات بالتحويل البنكي (IBAN / BIC) مع مسار واضح للمتبرعين.',
+'فضاء إدارة لتسيير الفعاليات (رمضان، الأعياد، نهاية السنة، النشاطات في زمورة).',
+'أُنجز تطوّعًا.' ], tags: projects[1].tags }
+],
+how: [
+'أبدأ بفهم النشاط: لماذا يوجد التطبيق، من يستخدمه، وما الذي يكلّف غاليًا عندما يتعطّل.',
+'أسلّم على مراحل قصيرة، مختبرة ومنشورة — ترى التقدّم كل أسبوع، لا في النهاية فقط.',
+'أوثّق وأنقل المعرفة: يستطيع الفريق مواصلة العمل على الشيفرة بدوني.',
+'أنبّه إلى المخاطر مسبقًا، لا بعد وقوعها.'
+]
+};
+const G = {
+'Java': ["Langage de programmation le plus utilisé dans les banques et les grandes entreprises pour leurs applications critiques.", "The most widely used programming language in banks and large companies for critical applications.", "لغة البرمجة الأكثر استخدامًا في البنوك والشركات الكبرى لتطبيقاتها الحساسة."],
+'Java / Spring Boot': ["Java est le langage ; Spring Boot est l’outil qui permet de construire vite la partie serveur d’une application : celle, invisible, qui traite les données et applique les règles métier.", "Java is the language; Spring Boot is the toolkit used to quickly build the server side of an application: the invisible part that processes data and applies business rules.", "Java هي لغة البرمجة، وSpring Boot أداة لبناء الجزء الخلفي من التطبيق بسرعة: الجزء غير المرئي الذي يعالج البيانات ويطبّق قواعد العمل."],
+'Spring Boot': ["Outil Java pour construire rapidement la partie serveur d’une application : celle, invisible, qui traite les données et les règles métier.", "Java toolkit to quickly build the server side of an application: the invisible part that handles data and business rules.", "أداة Java لبناء الجزء الخلفي من التطبيق بسرعة: الجزء غير المرئي الذي يعالج البيانات وقواعد العمل."],
+'Spring Batch': ["Outil Java pour les traitements de masse planifiés, par exemple recalculer des milliers de dossiers chaque nuit.", "Java tool for scheduled bulk processing, for example recalculating thousands of files every night.", "أداة Java للمعالجات الجماعية المجدولة، مثل إعادة حساب آلاف الملفات كل ليلة."],
+'React': ["Technologie créée par Meta pour construire les écrans d’une application web : tout ce que l’utilisateur voit et manipule.", "Technology created by Meta to build the screens of a web application: everything the user sees and interacts with.", "تقنية طوّرتها Meta لبناء واجهات تطبيقات الويب: كل ما يراه المستخدم ويتفاعل معه."],
+'Angular': ["Technologie de Google pour construire les écrans d’applications web professionnelles, très utilisée dans les banques.", "Google technology for building the screens of professional web applications, widely used in banks.", "تقنية من Google لبناء واجهات تطبيقات الويب المهنية، مستخدمة بكثرة في البنوك."],
+'Angular / React': ["Les deux technologies les plus utilisées pour construire les écrans des applications web : ce que l’utilisateur voit et manipule.", "The two most widely used technologies for building web application screens: what the user sees and interacts with.", "أكثر تقنيتين استخدامًا لبناء واجهات تطبيقات الويب: ما يراه المستخدم ويتفاعل معه."],
+'TypeScript': ["Version plus rigoureuse de JavaScript qui repère des erreurs avant même la mise en production.", "A stricter version of JavaScript that catches errors before they reach production.", "نسخة أكثر صرامة من JavaScript تكشف الأخطاء قبل الوصول إلى الإنتاج."],
+'Kotlin': ["Langage moderne compatible avec Java, utilisé pour les serveurs et les applications Android.", "Modern language compatible with Java, used for servers and Android apps.", "لغة حديثة متوافقة مع Java، تُستخدم للخوادم وتطبيقات Android."],
+'Flutter': ["Technologie de Google pour créer une application mobile (Android et iPhone) à partir d’un seul code.", "Google technology to build a mobile app (Android and iPhone) from a single codebase.", "تقنية من Google لإنشاء تطبيق جوّال (Android وiPhone) انطلاقًا من شيفرة واحدة."],
+'Python': ["Langage très utilisé pour l’analyse de données et l’intelligence artificielle.", "Language widely used for data analysis and artificial intelligence.", "لغة مستخدمة بكثرة في تحليل البيانات والذكاء الاصطناعي."],
+'AWS': ["Amazon Web Services : le cloud d’Amazon, où l’on loue des serveurs à la demande au lieu de les acheter.", "Amazon Web Services: Amazon’s cloud, where you rent servers on demand instead of buying them.", "Amazon Web Services: سحابة Amazon، حيث تُستأجر الخوادم حسب الحاجة بدل شرائها."],
+'AWS ECS': ["Service d’Amazon qui fait tourner les applications dans le cloud et ajuste les ressources automatiquement.", "Amazon service that runs applications in the cloud and scales resources automatically.", "خدمة من Amazon تشغّل التطبيقات في السحابة وتضبط الموارد تلقائيًا."],
+'AWS · CI/CD · Docker': ["Cloud d’Amazon + livraison automatique du code (CI/CD) + conteneurs Docker : de quoi mettre en production vite, souvent, sans erreur manuelle.", "Amazon cloud + automated code delivery (CI/CD) + Docker containers: ship to production fast, often, without manual mistakes.", "سحابة Amazon + تسليم آلي للشيفرة (CI/CD) + حاويات Docker: نشر سريع ومتكرر دون أخطاء يدوية."],
+'CloudFormation': ["Décrire toute l’infrastructure cloud dans un fichier, pour pouvoir la recréer à l’identique en un clic.", "Describe the whole cloud infrastructure in a file, so it can be recreated identically in one click.", "وصف البنية التحتية السحابية بالكامل في ملف، لإعادة إنشائها بنفس الشكل بنقرة واحدة."],
+'Trino': ["Moteur qui interroge très vite de gros volumes de données répartis dans plusieurs sources.", "Engine that quickly queries large volumes of data spread across several sources.", "محرّك يستعلم بسرعة عن كميات كبيرة من البيانات موزّعة على عدة مصادر."],
+'Jenkins': ["Robot qui teste et livre automatiquement le code à chaque modification.", "Robot that automatically tests and ships code on every change.", "أداة آلية تختبر الشيفرة وتنشرها تلقائيًا عند كل تعديل."],
+'GitLab CI': ["Chaîne automatique intégrée à GitLab qui teste, construit et déploie le code à chaque modification.", "Automated pipeline built into GitLab that tests, builds and deploys code on every change.", "سلسلة آلية مدمجة في GitLab تختبر الشيفرة وتبنيها وتنشرها عند كل تعديل."],
+'Docker': ["Emballe une application avec tout ce dont elle a besoin, pour qu’elle fonctionne partout de la même façon.", "Packages an application with everything it needs so it runs the same way everywhere.", "يغلّف التطبيق مع كل ما يحتاجه ليعمل بنفس الطريقة في كل مكان."],
+'IBM Cloud': ["Le cloud d’IBM, utilisé par certaines banques pour héberger leurs applications.", "IBM’s cloud, used by some banks to host their applications.", "سحابة IBM، تستخدمها بعض البنوك لاستضافة تطبيقاتها."],
+'Aspose': ["Bibliothèque qui génère automatiquement des fichiers Excel, Word ou PDF (rapports, relevés).", "Library that automatically generates Excel, Word or PDF files (reports, statements).", "مكتبة تُنشئ تلقائيًا ملفات Excel وWord وPDF (تقارير، كشوفات)."],
+'Ollama / LLaMA': ["Outils pour faire tourner une intelligence artificielle (type ChatGPT) sur les serveurs de l’entreprise, sans envoyer les données à l’extérieur.", "Tools to run an AI model (like ChatGPT) on the company’s own servers, without sending data outside.", "أدوات لتشغيل ذكاء اصطناعي (مثل ChatGPT) على خوادم المؤسسة دون إرسال البيانات إلى الخارج."],
+'Ollama': ["Outil pour faire tourner une intelligence artificielle (type ChatGPT) sur les serveurs de l’entreprise, sans envoyer les données à l’extérieur.", "Tool to run an AI model (like ChatGPT) on the company’s own servers, without sending data outside.", "أداة لتشغيل ذكاء اصطناعي (مثل ChatGPT) على خوادم المؤسسة دون إرسال البيانات إلى الخارج."],
+'Intégration LLM': ["LLM = modèle de langage, l’IA derrière ChatGPT. Je l’intègre dans des applications métier, hébergée en interne pour protéger les données.", "", ""],
+'LLM integration': ["", "LLM = large language model, the AI behind ChatGPT. I integrate it into business applications, hosted in-house to protect data.", ""],
+'دمج نماذج الذكاء الاصطناعي (LLM)': ["", "", "LLM = نموذج لغوي كبير، وهو الذكاء الاصطناعي وراء ChatGPT. أدمجه في تطبيقات الأعمال مع استضافته داخليًا لحماية البيانات."],
+'SAP Commerce Cloud': ["Plateforme e-commerce de SAP, utilisée par les grandes enseignes pour leurs sites marchands (anciennement appelée Hybris).", "SAP’s e-commerce platform, used by major retailers for their online stores (formerly called Hybris).", "منصّة التجارة الإلكترونية من SAP، تستخدمها العلامات الكبرى لمتاجرها الإلكترونية (كانت تُسمّى Hybris)."],
+'SAP Commerce': ["Plateforme e-commerce de SAP, utilisée par les grandes enseignes pour leurs sites marchands (anciennement Hybris).", "SAP’s e-commerce platform, used by major retailers for their online stores (formerly Hybris).", "منصّة التجارة الإلكترونية من SAP، تستخدمها العلامات الكبرى لمتاجرها الإلكترونية (سابقًا Hybris)."],
+'SAP Commerce (Hybris)': ["Plateforme e-commerce de SAP, utilisée par les grandes enseignes pour leurs sites marchands.", "SAP’s e-commerce platform, used by major retailers for their online stores.", "منصّة التجارة الإلكترونية من SAP، تستخدمها العلامات الكبرى لمتاجرها الإلكترونية."],
+'SAP Hybris OCC': ["Les API de SAP Commerce : elles permettent au site, à l’app mobile et aux caisses des magasins d’échanger avec la boutique en ligne.", "SAP Commerce APIs: they let the website, mobile app and store tills talk to the online shop.", "واجهات SAP Commerce البرمجية: تتيح للموقع والتطبيق وصناديق المتاجر التواصل مع المتجر الإلكتروني."],
+'Groovy': ["Langage de script utilisé pour automatiser des tâches dans SAP Commerce.", "Scripting language used to automate tasks in SAP Commerce.", "لغة سكربت تُستخدم لأتمتة المهام في SAP Commerce."],
+'ImpEx': ["Format de SAP Commerce pour importer ou exporter des données en masse (produits, prix, stocks).", "SAP Commerce format to import or export data in bulk (products, prices, stock).", "صيغة في SAP Commerce لاستيراد البيانات أو تصديرها بالجملة (منتجات، أسعار، مخزون)."],
+'Talend': ["Outil qui synchronise automatiquement les données entre plusieurs systèmes, ici le catalogue produits.", "Tool that automatically syncs data between systems, here the product catalogue.", "أداة تزامن البيانات تلقائيًا بين عدة أنظمة، وهنا كتالوج المنتجات."],
+'Mirakl': ["Logiciel qui permet à un site marchand d’accueillir des vendeurs partenaires (marketplace).", "Software that lets an online store host partner sellers (marketplace).", "برنامج يتيح للمتجر الإلكتروني استقبال بائعين شركاء (سوق إلكترونية)."],
+'Forter': ["Service qui détecte la fraude au paiement en temps réel.", "Service that detects payment fraud in real time.", "خدمة تكشف الاحتيال في الدفع في الوقت الحقيقي."],
+'Primer': ["Plateforme qui connecte un site à plusieurs moyens de paiement.", "Platform that connects a website to multiple payment methods.", "منصّة تربط الموقع بعدة وسائل دفع."],
+'Solr': ["Moteur de recherche qui affiche les bons produits quand un client tape un mot sur le site.", "Search engine that shows the right products when a customer types a word on the site.", "محرّك بحث يعرض المنتجات المناسبة عندما يكتب الزبون كلمة في الموقع."],
+'MuleSoft': ["Outil qui fait communiquer entre eux des logiciels différents : site, magasins, stocks.", "Tool that makes different systems talk to each other: website, stores, stock.", "أداة تجعل الأنظمة المختلفة تتواصل فيما بينها: الموقع، المتاجر، المخزون."],
+'Swagger': ["Documentation interactive des API, pour que les autres équipes sachent comment les utiliser.", "Interactive API documentation so other teams know how to use them.", "توثيق تفاعلي للواجهات البرمجية حتى تعرف الفرق الأخرى كيفية استخدامها."],
+'PostgreSQL': ["Base de données gratuite et robuste où sont stockées les informations de l’application.", "Free, robust database where the application’s information is stored.", "قاعدة بيانات مجانية وقوية تُخزَّن فيها معلومات التطبيق."],
+'Hetzner': ["Hébergeur européen de serveurs, économique et fiable.", "European server hosting provider, affordable and reliable.", "مزوّد استضافة أوروبي للخوادم، اقتصادي وموثوق."],
+'Hexagonal': ["Façon d’organiser le code pour que le cœur métier ne dépende d’aucun outil : on peut changer de base de données ou d’écran sans tout réécrire.", "A way of organising code so the business core depends on no tool: you can swap the database or UI without rewriting everything.", "طريقة لتنظيم الشيفرة بحيث لا يعتمد جوهر العمل على أي أداة: يمكن تغيير قاعدة البيانات أو الواجهة دون إعادة كتابة كل شيء."],
+'SonarQube': ["Outil qui contrôle automatiquement la qualité et la sécurité du code.", "Tool that automatically checks code quality and security.", "أداة تفحص جودة الشيفرة وأمانها تلقائيًا."],
+'HTML / CSS': ["Les langages de base du web : HTML pour le contenu, CSS pour la mise en forme.", "The basic languages of the web: HTML for content, CSS for styling.", "لغات الويب الأساسية: HTML للمحتوى وCSS للتنسيق."],
+'JavaScript': ["Langage qui rend les pages web interactives.", "Language that makes web pages interactive.", "لغة تجعل صفحات الويب تفاعلية."],
+'Responsive': ["Le site s’adapte automatiquement à l’écran : ordinateur, tablette ou téléphone.", "The site adapts automatically to any screen: computer, tablet or phone.", "الموقع يتكيّف تلقائيًا مع الشاشة: حاسوب، لوحي أو هاتف."]
+};
+const li = ar ? 2 : (fr ? 0 : 1);
+const L = (a, b, c) => [a, b, c][li];
+const PX = [
+{ shots: [
+{ src: 'assets/projects/bp-acheteur.jpg', cap: L('App acheteur — accueil', 'Buyer app — home', 'تطبيق المشتري — الرئيسية') },
+{ src: 'assets/projects/bp-vendeur.jpg', cap: L('App vendeur — analyse', 'Seller app — analytics', 'تطبيق البائع — التحليل') } ],
+links: [
+{ href: 'https://acheteur.babypowder-dz.duckdns.org/#/accueil', label: L('Voir l\'app acheteur', 'Open buyer app', 'فتح تطبيق المشتري') },
+{ href: 'https://vendeur.babypowder-dz.duckdns.org/#/accueil', label: L('Voir l\'app vendeur', 'Open seller app', 'فتح تطبيق البائع') } ] },
+{ shots: [],
+links: [ { href: 'https://solidarite-zemmoura.web.app/', label: L('Voir le site', 'Visit the site', 'زيارة الموقع') } ] }
+];
+const tipOf = (label) => { const k = String(label).replace(/\s+\d[\d→.\s]*$/, ''); const g = G[label] || G[k]; const info = g ? g[li] : ''; return { label, info, has: !!info, notip: !info }; };
 return {
-t: T, heroTags, clients, techs, values, results, exps, projects, how,
-frBtn: fr ? on : off, enBtn: fr ? off : on,
+t: ar ? AR.t : T, heroTags: (ar ? AR.heroTags : heroTags).map(tipOf), clients: ar ? AR.clients : clients,
+techs: techs.map(x => Object.assign({}, x, { info: tipOf(x.n).info })),
+values: ar ? AR.values : values, results: ar ? AR.results : results,
+exps: (ar ? AR.exps : exps).map(e => Object.assign({}, e, { tags: e.tags.map(tipOf) })),
+projects: (ar ? AR.projects : projects).map((p, i) => Object.assign({}, p, { tags: p.tags.map(tipOf) }, PX[i] || { shots: [], links: [] }, { hasShots: !!(PX[i] && PX[i].shots.length) })), how: ar ? AR.how : how,
+lang, dir: ar ? 'rtl' : 'ltr',
+frBtn: lang === 'fr' ? on : off, enBtn: lang === 'en' ? on : off, arBtn: ar ? on : off,
+setAr: () => this.setState({ lang: 'ar' }),
 setFr: () => this.setState({ lang: 'fr' }),
 setEn: () => this.setState({ lang: 'en' })
 };
